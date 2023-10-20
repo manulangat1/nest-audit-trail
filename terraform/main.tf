@@ -159,14 +159,14 @@ resource "aws_ecs_task_definition" "audit_task_definition" {
       {
         name = "app"
 
-        image     = "186837223139.dkr.ecr.us-east-1.amazonaws.com/audit_trail_repo:latest"
+        image     = "186837223139.dkr.ecr.us-east-1.amazonaws.com/audit_trail_repo"
         cpu       = 256
         memory    = 512
         essential = true
         portMappings = [
           {
-            containerPort = 3000
-            hostPort      = 3000
+            containerPort = 80
+            hostPort      = 80
           }
         ]
       }

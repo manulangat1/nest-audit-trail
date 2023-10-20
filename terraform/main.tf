@@ -92,6 +92,16 @@ resource "aws_security_group" "sg" {
 
   }
 
+  ingress {
+    # description = "http"
+    from_port = 3000
+    to_port   = 3000
+    protocol  = "tcp"
+
+    cidr_blocks = ["0.0.0.0/0"]
+
+  }
+
   egress {
     # description = "https"
     from_port = 0
@@ -159,14 +169,14 @@ resource "aws_ecs_task_definition" "audit_task_definition" {
       {
         name = "app"
 
-        image     = "186837223139.dkr.ecr.us-east-1.amazonaws.com/audit_trail_repo"
+        image     = "186837223139.dkr.ecr.us-east-1.amazonaws.com/audit_trail_repo:latest"
         cpu       = 256
         memory    = 512
         essential = true
         portMappings = [
           {
-            containerPort = 80
-            hostPort      = 80
+            containerPort = 3000
+            hostPort      = 3000
           }
         ]
       }
@@ -182,5 +192,49 @@ resource "aws_ecs_task_definition" "audit_task_definition" {
 
   task_role_arn      = "arn:aws:iam::186837223139:role/task_execution_1"
   execution_role_arn = "arn:aws:iam::186837223139:role/task_execution_1"
+
+}
+
+
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.dev-vpc.id
+}
+
+resource "aws_route_table" "route-table" {
+
+  vpc_id = aws_vpc.dev-vpc.id
+
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+
+  route {
+    ipv6_cidr_block = "::/0"
+    gateway_id      = aws_internet_gateway.igw.id
+  }
+
+}
+resource "aws_route_table_association" "route-1" {
+
+  route_table_id = aws_route_table.route-table.id
+
+  subnet_id = aws_subnet.subnet-1.id
+
+}
+
+resource "aws_route_table_association" "route-2" {
+
+  route_table_id = aws_route_table.route-table.id
+
+  subnet_id = aws_subnet.subnet-2.id
+
+}
+
+resource "aws_route_table_association" "route-3" {
+
+  route_table_id = aws_route_table.route-table.id
+
+  subnet_id = aws_subnet.subnet-3.id
 
 }

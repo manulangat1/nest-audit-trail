@@ -58,16 +58,14 @@ resource "aws_iam_role" "ecs_execution_role" {
   })
 }
 
-# Attach policies to the roles
-resource "aws_iam_policy_attachment" "ecs_task_role_policy" {
-  name       = "ecs_task_role_policy"
-  policy_arn = "arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess" # Adjust the policy as needed
-  roles      = [aws_iam_role.ecs_task_role.name]
+
+
+resource "aws_iam_role" "ecs_task_execution_role" {
+  name               = "ecs_task_role_policy"
+  assume_role_policy = data.aws_iam_policy_document.assume_role_policy.json
 }
 
-resource "aws_iam_policy_attachment" "ecs_execution_role_policy" {
-  name       = "ecs_execution_role_policy"
-  policy_arn = "arn:aws:iam::aws:policy/AmazonECS_FullAccess" # Adjust the policy as needed
-  roles      = [aws_iam_role.ecs_execution_role.name]
+resource "aws_iam_role_policy_attachment" "ecs_task_execution_role_policy" {
+  role       = aws_iam_role.ecs_task_execution_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
-

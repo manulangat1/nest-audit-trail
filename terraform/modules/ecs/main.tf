@@ -130,7 +130,8 @@ resource "aws_alb_target_group" "audit_target_group" {
 
   protocol = "HTTP"
 
-  vpc_id = aws_vpc.dev-vpc.id
+  target_type = "ip"
+  vpc_id      = aws_vpc.dev-vpc.id
 
   health_check {
     path                = "/api/healthcheck"

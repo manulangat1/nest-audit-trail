@@ -12,5 +12,10 @@ pipeline {
                 sh " docker build . -t audit-image"
             }
         }
+        stage("Clean docker images"){
+            steps{ 
+                sh "docker system prune -a -f"
+            }
+        }
      }
 }

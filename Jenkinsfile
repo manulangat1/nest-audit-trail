@@ -7,5 +7,10 @@ pipeline {
                 echo "Hello world"
             }
         }
+        stage("Build docker image") { 
+            steps { 
+                sh " docker build . -t audit-image"
+            }
+        }
      }
 }

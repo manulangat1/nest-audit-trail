@@ -33,3 +33,10 @@ pipeline {
         }
      }
 }
+
+
+// Function to parse JSON content
+def evaluateJson(jsonContent) {
+    def slurper = new JsonSlurper()
+    return slurper.parseText(jsonContent)
+}

@@ -10,9 +10,13 @@ pipeline {
         stage("Get current version") { 
     steps { 
         script {
-            def packageJson = readJson file: 'package.json'
-            def packageVersion = packageJson.version 
-            echo "packageVersion"
+                        def jsonContent = readFile(file: 'package.json').trim() // Read the JSON content from the file
+            def packageJson = evaluateJson(jsonContent) // Parse the JSON content
+            def packageVersion = packageJson.version
+            echo "Package Version: ${packageVersion}"
+            // def packageJson = readJson file: 'package.json'
+            // def packageVersion = packageJson.version 
+            // echo "packageVersion"
         }
     }
 }

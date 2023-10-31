@@ -25,8 +25,8 @@ pipeline {
 }
         stage("Build docker image") { 
             steps { 
-                sh " docker build . -t audit-image"
-                sh " docker tag audit-image:latest audit-image:${IMAGE_TAGS}"
+                sh " docker build . -t audit-image:${IMAGE_TAGS}"
+                // sh " docker tag audit-image:latest audit-image:${IMAGE_TAGS}"
                 sh "docker images"
             }
         }

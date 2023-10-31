@@ -11,7 +11,7 @@ pipeline {
     steps { 
         script {
                         def jsonContent = readFile(file: 'package.json').trim() // Read the JSON content from the file
-          sh "${jsonContent}"
+          echo "${jsonContent}"
             // def packageJson = jsonParse(jsonContent) // Parse the JSON content
             // def packageVersion = packageJson.version
             // echo "Package Version: ${packageVersion}"

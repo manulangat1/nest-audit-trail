@@ -9,9 +9,12 @@ pipeline {
         }
         stage("Get current version") { 
             steps { 
-                def packageJson = readJson file: 'package.json'
+                script {
+                                def packageJson = readJson file: 'package.json'
                 def packageVersion = packageJson.version 
                 echo "packageVersion"
+                }
+    
             }
         }
         stage("Build docker image") { 

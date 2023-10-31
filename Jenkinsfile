@@ -7,6 +7,13 @@ pipeline {
                 echo "Hello world"
             }
         }
+        stage("Get current version") { 
+            steps { 
+                def packageJson = readJson file: 'package.json'
+                def packageVersion = packageJson.version 
+                echo "packageVersion"
+            }
+        }
         stage("Build docker image") { 
             steps { 
                 sh " docker build . -t audit-image"

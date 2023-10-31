@@ -14,6 +14,7 @@ pipeline {
         }
         stage("Clean docker images"){
             steps{ 
+                echo "deleting in branch ${env.BRANCH_NAME} and build number ${env.BUILD_NUMBER}"
                 sh "docker system prune -a -f --volumes"
             }
         }

@@ -23,6 +23,15 @@ pipeline {
         }
     }
 }
+
+stage("Provinsion ecs cluster") {
+    steps { 
+        script {
+            sh "terraform init"
+            sh "terraform apply --auto-approve"
+        }
+    }
+}
         stage("Build docker image") { 
             steps { 
                 sh " docker build . -t audit-image"

@@ -25,12 +25,12 @@ pipeline {
 }
 
 stage("Provinsion ecs cluster") {
-            enviroment { 
- ACCESS_KEY = credentials( 'AWS_ACCESS_KEY')
+    environment { 
+            ACCESS_KEY = credentials( 'AWS_ACCESS_KEY')
             SECRET_KEY = credentials( 'AWS_ACCESS_KEY')
         }
     steps { 
-
+        
         script {
            
             echo "${ACCESS_KEY} - ${SECRET_KEY}"

@@ -28,10 +28,10 @@ stage("Provinsion ecs cluster") {
     environment { 
             ACCESS_KEY = credentials( 'AWS_ACCESS_KEY')
             SECRET_KEY = credentials( 'AWS_ACCESS_KEY')
-            TF_VAR_access_key= ACCESS_KEY
-            TF_VAR_secret_key= SECRET_KEY
-            TF_VAR_accessKey= ACCESS_KEY
-            TF_VAR_secretKey= SECRET_KEY
+            TF_VAR_access_key= "${ACCESS_KEY}
+            TF_VAR_secret_key= "${SECRET_KEY}
+            TF_VAR_accessKey= "${ACCESS_KEY}
+            TF_VAR_secretKey= "${SECRET_KEY}
         }
     steps { 
         

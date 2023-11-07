@@ -36,7 +36,7 @@ stage("Provinsion ecs cluster") {
             echo "${ACCESS_KEY} - ${SECRET_KEY}"
             dir("terraform") { 
                             sh "terraform init"
-            sh "terraform apply --auto-approve"
+            sh "terraform apply --auto-approve --var accessKey=ACCESS_KEY --var secretKey=SECRET_KEY"
             }
 
         }

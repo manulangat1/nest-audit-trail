@@ -26,12 +26,18 @@ pipeline {
 
 stage("Provinsion ecs cluster") {
     steps { 
-        script {
-            ACCESS_KEY = credentials( 'AWS_ACCESS_KEY')
+        enviroment { 
+ ACCESS_KEY = credentials( 'AWS_ACCESS_KEY')
             SECRET_KEY = credentials( 'AWS_ACCESS_KEY')
+        }
+        script {
+           
             echo "${ACCESS_KEY} - ${SECRET_KEY}"
-            sh "terraform init"
+            dir("terraform") { 
+                            sh "terraform init"
             sh "terraform apply --auto-approve"
+            }
+
         }
     }
 }

@@ -39,13 +39,14 @@ stage("Provinsion ecs cluster") {
            
             echo "${ACCESS_KEY} - ${SECRET_KEY}"
             dir("terraform") { 
-                            sh "terraform init --var access_key=${ACCESS_KEY} --var secret_key=${SECRET_KEY}"
-            sh "terraform apply --auto-approve --var access_key=${ACCESS_KEY} --var secret_key=${SECRET_KEY}"
-            ECR_URL = sh(
-                script: "terraform output ecr_repo" , 
-                returnStdOut: true
-            ).trim()
-            echo "ECR_URL"
+                sh "terraform init -var 'access_key=\${ACCESS_KEY}'  -var 'secret_key=\${SECRET_KEY}'"
+                            // sh "terraform init --var access_key=${ACCESS_KEY} --var secret_key=${SECRET_KEY}"
+            // sh "terraform apply --auto-approve --var access_key=${ACCESS_KEY} --var secret_key=${SECRET_KEY}"
+            // ECR_URL = sh(
+            //     script: "terraform output ecr_repo" , 
+            //     returnStdOut: true
+            // ).trim()
+            // echo "ECR_URL"
             }
 
         }

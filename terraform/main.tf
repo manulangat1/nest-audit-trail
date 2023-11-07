@@ -8,16 +8,19 @@ provider "aws" {
 
 }
 
-# terraform {
-#   backend "s3" {
-#     bucket = "blog-cms-test"
-#     key    = "audit-blog/terraform.tfstate"
+terraform {
+  backend "s3" {
+    bucket = "blog-cms-test"
+    key    = "audit-blog/terraform.tfstate"
 
-#     region = "us-east-1"
+    region = "us-east-1"
 
+    access_key = var.access_key
+    secret_key = var.secret_key
 
-#   }
-# }
+  }
+
+}
 
 
 module "audit_ecs" {

@@ -43,7 +43,7 @@ stage("Provinsion ecs cluster") {
                 // withCredentails ( { })
                 withCredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding', 
-                    credentialsId: "aws_credentials", 
+                    credentialsId: "aws_credentials ", 
                     accessKeyVariable:"AWS_ACCESS_KEY_ID" , 
                     secretKeyVariable:"AWS_SECRET_KEY"
                 ]]) {

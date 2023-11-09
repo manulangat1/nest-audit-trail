@@ -43,8 +43,16 @@ stage("Provinsion ecs cluster") {
             echo "${ACCESS_KEY} - ${SECRET_KEY}"
             dir("terraform") { 
                 // withCredentails ( { })
-                withCredentials([<object of type com.cloudbees.jenkins.plugins.awscredentials.AmazonWebServicesCredentialsBinding>]) {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding', 
+                    credentialsId: "aws_credentials", 
+                    accessKeyVariable:"AWS_ACCESS_KEY_ID" , 
+                    secretKeyVariable:"AWS_SECRET_KEY"
+                ]
+
+                ]) {
                     sh "terraform init -var access_key=${ACCESS_KEY}  -var secret_key=${SECRET_KEY}"
+                }
 }
                 
                             // sh "terraform init --var access_key=${ACCESS_KEY} --var secret_key=${SECRET_KEY}"

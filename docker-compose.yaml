@@ -1,0 +1,27 @@
+version: '3'
+services:
+  api: 
+    build: . 
+    command: npm run start:docker
+    ports:
+      - 3000:3000
+    depends_on:
+      - nest-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=nest
+    networks:
+      - mine
+  nest-db:
+    image: postgres:13
+    ports:
+      - "5435:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=nest
+    networks:
+      - mine
+networks:
+  mine:

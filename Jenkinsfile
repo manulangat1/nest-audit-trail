@@ -39,8 +39,6 @@ stage("Provinsion ecs cluster") {
     steps { 
         
         script {
-           
-            echo "${ACCESS_KEY} - ${SECRET_KEY}"
             dir("terraform") { 
                 // withCredentails ( { })
                 withCredentials([[

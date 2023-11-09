@@ -47,7 +47,7 @@ stage("Provinsion ecs cluster") {
                     accessKeyVariable:"AWS_ACCESS_KEY_ID" , 
                     secretKeyVariable:"AWS_SECRET_KEY"
                 ]]) {
-                    sh "terraform init"
+                    sh "terraform init --var access_key=${ACCESS_KEY} --var secret_key=${SECRET_KEY}"
                                 
                 }
                 

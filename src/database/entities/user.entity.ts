@@ -21,7 +21,7 @@ export class User {
   @Column({ unique: true })
   email: string;
 
-  @Column({ nullable: false })
+  @Column({ nullable: true })
   password: string;
 
   @UpdateDateColumn()
@@ -39,4 +39,10 @@ export class User {
     nullable: true,
   })
   auditTrails: AuditTrail[];
+
+  @Column({
+    type: Boolean,
+    default: false,
+  })
+  isGoogleUser: boolean;
 }

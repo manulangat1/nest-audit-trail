@@ -5,6 +5,17 @@ import { User } from '../database/entities/user.entity';
 import { RegisterUserDTO } from './dto';
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
+import { OAuth2Client } from 'google-auth-library';
+import { config as dotenvConfig } from 'dotenv';
+
+dotenvConfig({
+  path: '.env',
+});
+const client = new OAuth2Client(
+  process.env.GOOGLE_CLIENT_ID,
+  process.env.GOOGLE_CLIENT_SECRET,
+);
+
 @Injectable()
 export class AuthService {
   private logger = new Logger('Auth');
@@ -15,6 +26,27 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+  async googleRegistrationService(token: string) {
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+    const { email } = ticket.getPayload();
+    const userExists = await this.userRepo.findOne({
+      where: {
+        email: email,
+      },
+    });
+    if (userExists) {
+      throw new BadRequestException('user already exists ');
+    }
+    const newUser = await this.userRepo.create({
+      email: email,
+      isGoogleUser: true,
+    });
+    this.logger.log(`User with email ${email} created successfully`);
+    return this.userRepo.save(newUser);
+  }
   async getUserByEmail(email: string) {
     return await this.userRepo.findOne({
       where: {

@@ -1,0 +1,25 @@
+name: Deploy to Amazon ECS
+
+on:
+  push:
+    branches:
+      - feat-terraform-config
+
+env:
+  AWS_REGION: us-east-1
+  ECS_CLUSTER: audit-cluster
+  CONTAINER_NAME: app
+  ECS_SERVICE: audit-services
+  ECS_TD: .github/workflows/td.json
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      

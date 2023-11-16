@@ -24,7 +24,6 @@ export class AuditTrailService {
   }
 
   async create(data) {
-    console.log('my data', data);
     const newAuditTrail = await this.auditRepository.create({
       ...data,
     });

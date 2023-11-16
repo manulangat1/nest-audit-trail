@@ -1,3 +1,4 @@
+// auth.controller.ts
 import {
   Body,
   Controller,
@@ -40,5 +41,15 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async profile(@GetUser() user: any) {
     return this.authService.getUserById(user);
+  }
+
+  @Public()
+  @Post('google/registration')
+  @ApiOperation({
+    summary: 'This is the google registration endpoints',
+  })
+  @HttpCode(HttpStatus.CREATED)
+  async googleRegistration(@Body() dto: any) {
+    return this.authService.googleRegistrationService(dto.token);
   }
 }

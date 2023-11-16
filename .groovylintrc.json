@@ -1,0 +1,13 @@
+{
+  "jenkinsfile": {
+    "formatter": "groovy-eclipse",
+    "formatterOptions": {
+      "indentation": 2,
+      "alignFields": true
+    },
+    "rules": {
+      "no-undeclared-variables": "error",
+      "no-unused-variables": "error"
+    }
+  }
+}

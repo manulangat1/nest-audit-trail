@@ -22,6 +22,13 @@ async function bootstrap() {
       forbidUnknownValues: true,
     }),
   );
+  app
+    .enableCors
+    // {
+    // "http://localhost:5173"
+    // '*',
+    // }
+    ();
   enableDocumentation(app);
   await app.listen(3000);
 }
